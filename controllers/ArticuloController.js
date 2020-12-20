@@ -2,7 +2,12 @@ const models=require('../models');
 
 exports.list=async(req,res,next)=>{
     try{
-        const articulo=await models.Articulo.findAll();
+        const articulo=await models.Articulo.findAll({
+            include: [{
+                model: models.Categoria,
+                as: 'categoria'
+            }]
+        });
         if(articulo){
             res.status(200).json(articulo);
         }
